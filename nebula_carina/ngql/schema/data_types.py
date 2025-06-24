@@ -54,9 +54,12 @@ class _DigitType(DataType):
     def value2db_str(cls, value):
         if value is None:
             return 'NULL'
-        if not str(value).isdigit():
-            raise ValueError(f'{cls.__name__} value should be None or digit')
-        return str(value)
+        try:
+            # 尝试转换为数字，支持整数和浮点数
+            float(value)
+            return str(value)
+        except (ValueError, TypeError):
+            raise ValueError(f'{cls.__name__} value should be None or a valid number')
 
 
 class Int64(_DigitType):

@@ -79,12 +79,12 @@ class NebulaSchemaModel(BaseModel, metaclass=NebulaSchemaModelMetaClass):
     def get_db_field_dict(self) -> dict[str, any]:
         return {
             field_name: field_info.data_type.value2db_str(getattr(self, field_name))
-            for field_name, field_info in self.model_fields.items()
+            for field_name, field_info in self.__class__.model_fields.items()
             if isinstance(field_info, NebulaFieldInfo)
         }
 
     def get_db_field_value(self, field_name) -> str:
-        return self.model_fields[field_name].data_type.value2db_str(
+        return self.__class__.model_fields[field_name].data_type.value2db_str(
             getattr(self, field_name)
         )
 
