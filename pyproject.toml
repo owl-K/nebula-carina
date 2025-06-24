@@ -1,0 +1,29 @@
+[project]
+name = "nebula-carina"
+version = "0.3.2"
+description = "Nebula Database Modeling powered by Pydantic and Nebula Python."
+readme = "README.md"
+authors = [
+    {name = "Sword Elucidator", email = "nagisa940216@gmail.com"}
+]
+license = {text = "MIT Licence"}
+requires-python = ">=3.10"
+dependencies = [
+    "nebula3-python",
+    "pydantic>=2.0.0",
+    "pydantic-settings>=2.0.0",
+    "fastapi>=0.112.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/SwordElucidator/nebula-carina"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.uv]
+dev-dependencies = [
+    "pytest",
+    "pytest-cov",
+]

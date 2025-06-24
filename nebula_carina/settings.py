@@ -39,11 +39,11 @@ except ModuleNotFoundError:
 
     class DatabaseSettings(BaseSettings):
         max_connection_pool_size: int = 10
-        servers: Set[str] = set()
-        user_name: str
-        password: str
+        servers: Set[str] = {"101.35.211.56:9669"}
+        user_name: Optional[str] = "root"
+        password: Optional[str] = "rkRK123@"
         default_space: str = "main"
-        auto_create_default_space_with_vid_desc: Optional[str]
+        auto_create_default_space_with_vid_desc: Optional[str] = None
 
         model_paths: Set[str] = set()
         timezone_name: str = "UTC"

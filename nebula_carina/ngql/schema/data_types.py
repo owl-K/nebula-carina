@@ -144,12 +144,12 @@ class Date(DataType):
         raise ValueError('Date value should be None or date')
 
     @classmethod
-    def value2db_str(cls, value: None | str | time):
+    def value2db_str(cls, value: None | str | date):
         if value is None:
             return 'NULL'
         if value == Date.auto:
             return 'date()'
-        assert isinstance(value, time), 'Date python value should be None or datetime.date'
+        assert isinstance(value, date), 'Date python value should be None or datetime.date'
         return f'date("{value}")'
 
 

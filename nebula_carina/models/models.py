@@ -5,7 +5,7 @@ from inspect import isclass
 from typing import Iterable
 
 from nebula3.common.ttypes import Vertex, Tag, Edge
-from pydantic import BaseModel, StrictStr, StrictInt
+from pydantic import BaseModel
 
 # Workaround form ModelMetaClass not being supposed to be used publicly
 # https://github.com/pydantic/pydantic/issues/6381
@@ -223,7 +223,7 @@ class NebulaRecordModel(
 
 
 class VertexModel(NebulaRecordModel):
-    vid: StrictInt | StrictStr
+    vid: int | str
     objects = BaseVertexManager()
 
     @classmethod
@@ -382,8 +382,8 @@ class VertexModel(NebulaRecordModel):
 
 
 class EdgeModel(NebulaRecordModel):
-    src_vid: StrictInt | StrictStr
-    dst_vid: StrictInt | StrictStr
+    src_vid: int | str
+    dst_vid: int | str
     ranking: int = 0
     edge_type_name: str | None = None  # for view only
     edge_type: EdgeTypeModel  # only one edge type
