@@ -328,6 +328,26 @@ class VertexModel(NebulaRecordModel):
             )
             run_ngql(ngql)
 
+    def insert(self, *, if_not_exists: bool = False):
+        """
+        Alias for save() method to maintain backward compatibility.
+        Always inserts a new vertex, even if it already exists.
+        """
+        tag_props = OrderedDict()
+        data = []
+        for name, tag_model in self._get_tag_models():
+            tag_props[tag_model.db_name()] = tag_model.get_db_field_names()
+            data.extend(
+                [
+                    getattr(self, name).get_db_field_value(field_name)
+                    for field_name in tag_props[tag_model.db_name()]
+                ]
+            )
+        ngql = insert_vertex_ngql(
+            tag_props, {self.vid: data}, if_not_exists=if_not_exists
+        )
+        run_ngql(ngql)
+
     def get_out_edges(self, edge_type: EdgeTypeModel = None, *, limit: Limit = None):
         return EdgeModel.objects.find_by_source(self.vid, edge_type, limit=limit)
 
@@ -462,3 +482,28 @@ class EdgeModel(NebulaRecordModel):
                 if_not_exists=if_not_exists,
             )
             run_ngql(ngql)
+
+    def insert(self, *, if_not_exists: bool = False):
+        """
+        Alias for save() method to maintain backward compatibility.
+        Always inserts a new edge, even if it already exists.
+        """
+        _, edge_type_model = self.get_edge_type_and_model()
+        db_field_names = edge_type_model.get_db_field_names()
+        ngql = insert_edge_ngql(
+            edge_type_model.db_name(),
+            db_field_names,
+            [
+                EdgeValue(
+                    self.src_vid,
+                    self.dst_vid,
+                    [
+                        self.edge_type.get_db_field_value(field_name)
+                        for field_name in db_field_names
+                    ],
+                    ranking=self.ranking,
+                )
+            ],
+            if_not_exists=if_not_exists,
+        )
+        run_ngql(ngql)

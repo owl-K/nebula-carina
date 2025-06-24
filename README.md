@@ -13,16 +13,69 @@ This project is based on the official package nebula-python https://github.com/v
 At present, the project is not stable yet, the code changes rapidly and the methods are unstable.
 If you have any ideas for improving this project, you are very welcome to contact me via issue or email.
 
+## 🚀 Pydantic 2.x Upgrade
+
+This project has been upgraded to support **Pydantic 2.x** (v2.11.7+). The upgrade maintains full backward compatibility with existing code.
+
+### What's Changed
+- ✅ **Pydantic 2.x Support**: Now compatible with Pydantic 2.11.7+
+- ✅ **Backward Compatibility**: All existing API calls remain unchanged
+- ✅ **Type Safety**: Enhanced type checking and validation
+- ✅ **Performance**: Improved performance with Pydantic 2.x
+
+### Breaking Changes
+- **None**: All existing code should work without modification
+
+### New Features
+- Enhanced type validation
+- Better error messages
+- Improved performance
+
 ## Requirements
 
-* Python (3.10)
+* Python (3.10+)
 * nebula3-python (>=3.10)
+* pydantic (>=2.0.0)
+* pydantic-settings (>=2.0.0)
 
 ## Installation
 
-install using `pip`
+### Standard Installation
+Install using `pip`:
 
-    pip install nebula-carina
+```bash
+pip install nebula-carina
+```
+
+### Using uv (Recommended)
+Install using `uv` for better dependency management:
+
+```bash
+uv pip install nebula-carina
+```
+
+### From Private Git Repository
+If you have a private repository, you can install directly from Git:
+
+```bash
+# Using SSH
+uv pip install git+ssh://git@github.com/your-username/nebula-carina.git
+
+# Using HTTPS with token
+uv pip install git+https://your-token@github.com/your-username/nebula-carina.git
+```
+
+### Local Development Installation
+For development, install in editable mode:
+
+```bash
+git clone https://github.com/your-username/nebula-carina.git
+cd nebula-carina
+uv pip install -e .
+```
+
+### Pydantic Version Compatibility
+This package requires **Pydantic 2.x** (>=2.0.0). If you're upgrading from Pydantic 1.x, no code changes are required - the upgrade is fully backward compatible.
 
 ## Configuration
 
